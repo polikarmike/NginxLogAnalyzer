@@ -1,67 +1,66 @@
 # NGINX Log Analyzer
 
-NGINX Log Analyzer — это инструмент для анализа логов NGINX, который позволяет быстро и эффективно собирать статистику по запросам, ответам и размерам переданных данных. Программа поддерживает обработку локальных файлов и удаленных логов по URL, с возможностью фильтрации по временным параметрам и выводом результатов в формате Markdown или AsciiDoc.
+NGINX Log Analyzer is a tool for analyzing NGINX logs, allowing for quick and efficient collection of statistics on requests, responses, and the sizes of transmitted data. The program supports processing local files and remote logs via URL, with options for filtering by time parameters and outputting results in Markdown or AsciiDoc format.
 
-## Возможности
+## Features
 
-- **Подсчет общего количества запросов**: анализирует общее количество запросов в логах.
-- **Определение наиболее часто запрашиваемых ресурсов**: отображает список URL-адресов с наибольшим количеством запросов.
-- **Определение наиболее часто встречающихся кодов ответа**: показывает распределение кодов HTTP-ответов (например, 200, 404, 500 и т.д.).
-- **Рассчет среднего размера ответа**: рассчитывает средний размер ответа сервера.
+- **Counting the Total Number of Requests**: Analyzes the total number of requests in the logs.
+- **Identifying the Most Frequently Requested Resources**: Displays a list of URLs with the highest number of requests.
+- **Identifying the Most Frequent Response Codes**: Shows the distribution of HTTP response codes (e.g., 200, 404, 500, etc.).
+- **Calculating the Average Response Size**: Calculates the average size of the server's response.
 
-## Используемые технологии
+## Technologies Used
 
-- **Java**: основной язык программирования для реализации проекта.
-- **Java NIO (New I/O)**: для эффективного чтения лог-файлов.
-- **Java Time API**: для работы с датами и временем.
-- **Коллекции Java**: для сбора и обработки статистики.
-- **Markdown и AsciiDoc**: форматы вывода отчета.
+- **Java**: The main programming language for the project implementation.
+- **Java NIO (New I/O)**: For efficient log file reading.
+- **Java Time API**: For working with dates and time.
+- **Java Collections**: For gathering and processing statistics.
+- **Markdown and AsciiDoc**: Formats for report output.
 
+## Output Examples
 
-## Примеры вывода
+### General Information
 
-### Общая информация
-
-|        Метрика        |     Значение |
+|        Metric        |     Value    |
 |:---------------------:|-------------:|
-|       Файл(-ы)        | `access.log` |
-|    Начальная дата     |   31.08.2023 |
-|     Конечная дата     |            - |
-|  Количество запросов  |       10_000 |
-| Средний размер ответа |         500b |
+|       File(s)        | `access.log`  |
+|    Start Date        |  31.08.2023  |
+|    End Date          |        -     |
+|  Number of Requests  |     10,000   |
+| Average Response Size|       500b   |
 
-### Запрашиваемые ресурсы
+### Requested Resources
 
-|     Ресурс      | Количество |
-|:---------------:|-----------:|
-|  `/index.html`  |      5_000 |
-|  `/about.html`  |      2_000 |
-| `/contact.html` |      1_000 |
+|     Resource     | Count |
+|:----------------:|------:|
+|  `/index.html`   | 5,000 |
+|  `/about.html`   | 2,000 |
+| `/contact.html`  | 1,000 |
 
-### Коды ответа
+### Response Codes
 
-| Код |          Имя          | Количество |
-|:---:|:---------------------:|-----------:|
-| 200 |          OK           |       8000 |
-| 404 |       Not Found       |       1000 |
-| 500 | Internal Server Error |        500 |
+| Code |          Name         | Count  |
+|:----:|:---------------------:|-------:|
+| 200  |          OK           |  8,000 |
+| 404  |       Not Found       |  1,000 |
+| 500  | Internal Server Error |    500 |
 
-## Архитектура
+## Architecture
 
-Программа построена по принципу конвейера, где:
+The program is built on a pipeline principle, where:
 
-1. Ввод пользователя (имена файлов, URL и т.д.) обрабатывается и преобразуется в поток записей `Stream<LogRecord>`.
-2. Поток анализируется и создается отчет `LogReport`.
-3. Отчет записывается в файл в формате Markdown или AsciiDoc.
+1. User input (file names, URLs, etc.) is processed and converted into a stream of records `Stream<LogRecord>`.
+2. The stream is analyzed, and a report `LogReport` is generated.
+3. The report is written to a file in Markdown or AsciiDoc format.
 
-## Схема NGINX-логов
+## NGINX Log Format
 
-Формат логов NGINX:
+The NGINX log format:
 ```
 $remote_addr - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent"
 ```
 
-## Дополнительные возможности
+## Additional Features
 
-- Фильтрация логов по времени (аргументы `--from` и `--to`).
-- Выбор формата отчета (аргумент `--format`).
+- Log filtering by time (arguments `--from` and `--to`).
+- Report format selection (argument `--format`).
